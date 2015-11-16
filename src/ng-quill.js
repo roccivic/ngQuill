@@ -273,6 +273,20 @@
                         }, 0);
                     });
 
+                    // set value on refresh
+                    $scope.$watch(function () {
+                        return ngModel.$viewValue;
+                      },
+                      function (newText) {
+                        if (newText !== editor.getHTML()) {
+                          editor.setHTML(newText);
+                        }
+                        if (newText === undefined) {
+                          editor.setHTML('');
+                        }
+                      }
+                    );
+
                     // Clean-up
                     element.on('$destroy', function () {
                         editor.destroy();
